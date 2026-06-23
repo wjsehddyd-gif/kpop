@@ -125,6 +125,28 @@ export const CSS = `
 .ka-corr-card{background:#F7F9FC;border:1px solid #EAEEF3;border-radius:12px;padding:12px 14px;}
 .ka-corr-name{font-size:12.5px;font-weight:800;color:#1B1F2A;margin-bottom:8px;}
 .ka-corr-steps{margin:0;padding-left:16px;font-size:12px;color:#5B616C;line-height:1.7;}
+.ka-secbar{display:flex;align-items:baseline;justify-content:space-between;margin:24px 2px 12px;padding-bottom:8px;border-bottom:2px solid #E9ECF1;}
+.ka-secbar b{font-size:16px;font-weight:800;color:#1B1F2A;}
+.ka-secbar span{font-size:12px;color:#9AA0AB;}
+.ka-tier{font-size:10.5px;font-weight:800;padding:2px 8px;border-radius:99px;}
+.ka-tier.t-core{background:#E8EDFF;color:#3B5BFE;}
+.ka-tier.t-major{background:#DCF5F1;color:#0E9F8E;}
+.ka-tier.t-cond{background:#FEF0DC;color:#D97706;}
+.ka-tier.t-extra{background:#EEF1F5;color:#64748B;}
+.ka-spots{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;background:#FAFBFD;border:1px solid #F0F2F5;border-radius:10px;padding:10px 12px;margin-bottom:10px;}
+.ka-spots-t{font-size:11px;font-weight:800;color:#9AA0AB;}
+.ka-spot{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:#5B616C;}
+.ka-spot b{color:#3A4049;font-weight:700;}
+.ka-spot-dot{width:9px;height:9px;border-radius:99px;flex:none;}
+.ka-generic{background:#FAFBFD;border:1px solid #F0F2F5;border-radius:10px;padding:11px 14px;}
+.ka-generic-t{font-size:11px;font-weight:800;color:#9AA0AB;}
+.ka-generic-steps{margin:8px 0 0;padding-left:18px;font-size:12.5px;color:#3A4049;line-height:1.8;}
+.ka-generic-note{font-size:11px;color:#AEB4BE;margin-top:8px;}
+.ka-corr-cnt{font-size:10.5px;font-weight:700;color:#9AA0AB;background:#EEF1F5;padding:2px 7px;border-radius:99px;margin-left:8px;}
+.ka-affect{display:flex;flex-direction:column;gap:6px;}
+.ka-affect-row{display:flex;gap:10px;align-items:baseline;}
+.ka-affect-part{flex:none;width:62px;font-size:11.5px;font-weight:800;color:#3B5BFE;}
+.ka-affect-fx{font-size:12px;color:#5B616C;line-height:1.5;}
 @media (max-width:1080px){.ka-cards{grid-template-columns:repeat(2,1fr);}.ka-row2{grid-template-columns:1fr;}.ka-grid{grid-template-columns:repeat(2,1fr);}}
 @media (max-width:720px){.ka-side{display:none;}.ka-cards{grid-template-columns:repeat(2,1fr);}.ka-grid{grid-template-columns:1fr;}}
 `;
