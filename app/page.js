@@ -1,19 +1,42 @@
 "use client";
 /* eslint-disable */
 // K-POP 스타일 시뮬레이터 — 단일 페이지 포팅(엔진 원본 그대로). 화면은 #shell에 렌더됩니다.
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function Page() {
   const booted = useRef(false);
+  const [clock, setClock] = useState("");
   useEffect(() => {
     if (booted.current) return;
     booted.current = true;
     bootKpopApp();
   }, []);
+  useEffect(() => {
+    const fmt = () => {
+      const d = new Date();
+      const m = d.getMinutes();
+      return d.getHours() + ":" + (m < 10 ? "0" + m : m);
+    };
+    setClock(fmt());
+    const t = setInterval(() => setClock(fmt()), 15000);
+    return () => clearInterval(t);
+  }, []);
   return (
-    <main className="app">
-      <div className="shell" id="shell"></div>
-    </main>
+    <div className="device-stage">
+      <div className="device">
+        <div className="statusbar">
+          <span className="sb-time">{clock || "12:30"}</span>
+          <span className="sb-icons">
+            <svg width="17" height="11" viewBox="0 0 17 11" fill="currentColor" aria-hidden="true"><rect x="0" y="7" width="3" height="4" rx="0.6"/><rect x="4.6" y="4.8" width="3" height="6.2" rx="0.6"/><rect x="9.2" y="2.4" width="3" height="8.6" rx="0.6"/><rect x="13.8" y="0" width="3" height="11" rx="0.6"/></svg>
+            <svg width="16" height="12" viewBox="0 0 16 12" fill="currentColor" aria-hidden="true"><path d="M8 11.4l1.9-2.5a2.4 2.4 0 0 0-3.8 0L8 11.4z"/><path d="M8 4.1c2 0 3.8.8 5.2 2.1l1.3-1.5A9.2 9.2 0 0 0 8 1.9 9.2 9.2 0 0 0 1.5 4.7l1.3 1.5A7.2 7.2 0 0 1 8 4.1z" opacity="0.92"/></svg>
+            <span className="sb-batt"><span className="sb-batt-fill"></span></span>
+          </span>
+        </div>
+        <main className="app">
+          <div className="shell" id="shell"></div>
+        </main>
+      </div>
+    </div>
   );
 }
 

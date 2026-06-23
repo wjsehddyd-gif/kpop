@@ -32,13 +32,17 @@ button { font-family: inherit; cursor: pointer; }
 
 /* ambient background glow */
 .app {
-  min-height: 100dvh;
+  flex: 1;
+  min-height: 0;
   position: relative;
+  z-index: 1;
+  overflow-y: auto;
   overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
 }
-.app::before {
+.device::before {
   content: "";
-  position: fixed;
+  position: absolute;
   inset: 0;
   background:
     radial-gradient(70% 50% at 80% -5%, rgba(255, 77, 141, 0.16), transparent 60%),
@@ -413,3 +417,51 @@ button { font-family: inherit; cursor: pointer; }
 .genspin { width:16px; height:16px; flex:none; border-radius:99px; border:2px solid rgba(255,255,255,0.2); border-top-color:var(--pink); display:inline-block; animation:genspin 0.8s linear infinite; }
 @keyframes genspin { to { transform: rotate(360deg); } }
 .mock-badge.done { background: var(--grad); color:#fff; }
+
+
+/* ===== 폰 프레임 (mockup) — PC에선 폰 모양, 진짜 폰에선 꽉 차게 ===== */
+.device-stage {
+  min-height: 100dvh;
+  background: #07060c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+.device {
+  width: 390px;
+  height: min(844px, calc(100dvh - 48px));
+  background: var(--ink);
+  border-radius: 46px;
+  border: 10px solid #000;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.55), inset 0 0 0 1px rgba(255,255,255,0.05);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.statusbar {
+  position: relative;
+  z-index: 2;
+  flex: none;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px 0 22px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+  background: var(--ink);
+}
+.sb-time { font-variant-numeric: tabular-nums; letter-spacing: 0.01em; }
+.sb-icons { display: flex; align-items: center; gap: 7px; color: var(--text); }
+.sb-icons svg { display: block; }
+.sb-batt { position: relative; width: 22px; height: 11px; border: 1.4px solid currentColor; border-radius: 3px; }
+.sb-batt::after { content: ""; position: absolute; right: -3.5px; top: 3px; width: 2px; height: 5px; background: currentColor; border-radius: 0 1.5px 1.5px 0; }
+.sb-batt-fill { position: absolute; left: 1.4px; top: 1.4px; bottom: 1.4px; width: 62%; background: currentColor; border-radius: 1.5px; }
+
+@media (max-width: 440px) {
+  .device-stage { padding: 0; background: var(--ink); }
+  .device { width: 100%; height: 100dvh; border: 0; border-radius: 0; box-shadow: none; }
+}
