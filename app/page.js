@@ -2,6 +2,7 @@
 /* eslint-disable */
 // K-POP 스타일 시뮬레이터 — 단일 페이지 포팅(엔진 원본 그대로). 화면은 #shell에 렌더됩니다.
 import { useEffect, useRef, useState } from "react";
+import { trackVisit } from "./lib/supa";
 
 export default function Page() {
   const booted = useRef(false);
@@ -10,6 +11,7 @@ export default function Page() {
     if (booted.current) return;
     booted.current = true;
     bootKpopApp();
+    try { trackVisit("app"); } catch (e) {}
   }, []);
   useEffect(() => {
     const fmt = () => {
@@ -187,6 +189,7 @@ function bootKpopApp() {
     var set=searchSet(celeb, profile);
     var patches=computePatches(set, profile, celeb);
     var blocks=compose(celeb, set.corrections, patches);
+    try{ if(typeof window!=="undefined" && window.kpopTrackSelection) window.kpopTrackSelection(celebId); }catch(e){}
     return { celeb:celeb, profile:profile, set:set, patches:patches, blocks:blocks,
              matched:matchedFeatures(set,profile,celeb), grade:gradeOf(patches.length), reasons:buildReasons(celeb,patches), ranking:compareCelebs(profile) };
   }
@@ -682,14 +685,18 @@ function bootKpopApp() {
   function generateResultImage(){
     if(!S.selfie || !S.result || S.genStatus==="loading") return;
     S.genStatus="loading"; S.genError=null; render();
+    var __gt0=Date.now();
+    var __gcode=(S.result&&S.result.celeb&&S.result.celeb.id)||"";
     fetch("/api/generate",{ method:"POST", headers:{"Content-Type":"application/json"},
       body:JSON.stringify({ image:S.selfie, prompt:buildStylePrompt(S.result) }) })
       .then(function(res){ return res.json().then(function(j){ return {ok:res.ok, j:j}; }); })
       .then(function(o){
         if(!o.ok || !o.j || !o.j.image){ throw new Error((o.j&&o.j.error)||"이미지 생성에 실패했어요. 잠시 후 다시 시도해 주세요."); }
         S.resultImage=o.j.image; S.genStatus="done"; render();
+        try{ if(window.kpopTrackGeneration) window.kpopTrackGeneration(__gcode,"success",Date.now()-__gt0); }catch(e){}
       })
-      .catch(function(e){ S.genStatus="error"; S.genError=(e&&e.message)||"오류가 발생했어요."; render(); });
+      .catch(function(e){ S.genStatus="error"; S.genError=(e&&e.message)||"오류가 발생했어요."; render();
+        try{ if(window.kpopTrackGeneration) window.kpopTrackGeneration(__gcode,"fail",Date.now()-__gt0); }catch(e2){} });
   }
   function bind(){
     var back=document.getElementById("back");
