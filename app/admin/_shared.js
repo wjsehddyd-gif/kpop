@@ -18,6 +18,7 @@ export function Sidebar({ active }) {
       <div className="ka-sec">콘텐츠</div>
       {item("/admin/styles", "styles", "💄", "스타일 도감")}
       {item("/admin/blocks", "blocks", "🧩", "부위별 도감")}
+      {item("/admin/correction", "correction", "🎯", "보정 도감")}
       {item("/admin/styles", "images", "🖼️", "생성 이미지")}
       <div className="ka-foot">K-POP 회원 관제<br />· 띵동/Life+ 자회사</div>
     </aside>
@@ -147,6 +148,32 @@ export const CSS = `
 .ka-affect-row{display:flex;gap:10px;align-items:baseline;}
 .ka-affect-part{flex:none;width:62px;font-size:11.5px;font-weight:800;color:#3B5BFE;}
 .ka-affect-fx{font-size:12px;color:#5B616C;line-height:1.5;}
+.ka-cor-note{display:flex;gap:7px;font-size:12px;color:#3B5BFE;background:#EEF3FF;border:1px solid #DCE6FF;border-radius:10px;padding:9px 12px;margin-bottom:14px;line-height:1.5;}
+.ka-cor-note i{font-style:normal;}
+.ka-cor{border-top:1px solid #F2F4F7;padding:16px 0 4px;}
+.ka-cor:first-of-type{border-top:0;}
+.ka-cor-h{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:5px;}
+.ka-cor-name{font-size:16px;font-weight:800;color:#1B1F2A;}
+.ka-cor-goal{font-size:13px;color:#3B5BFE;font-weight:600;}
+.ka-cor-when{font-size:12.5px;color:#8B919C;margin:0 0 12px;line-height:1.6;}
+.ka-cm{border-top:1px dashed #ECEEF2;padding:11px 0 3px;}
+.ka-cm.na{opacity:.62;}
+.ka-cm-h{display:flex;align-items:center;gap:8px;margin-bottom:7px;}
+.ka-cm-kind{font-size:12px;font-weight:700;padding:2px 9px;border-radius:8px;display:inline-flex;align-items:center;gap:4px;}
+.ka-cm-kind i{font-style:normal;}
+.ka-cm-kind.k-tool{background:#E3F7EF;color:#0E9F8E;}
+.ka-cm-kind.k-hair{background:#E3F7EF;color:#0E9F8E;}
+.ka-cm-kind.k-tone{background:#F0F2F5;color:#6B717C;}
+.ka-cm-kind.k-na{background:#F0F2F5;color:#AEB4BE;}
+.ka-cm-real{font-size:11.5px;color:#16A34A;font-weight:700;}
+.ka-cm-illu{font-size:11.5px;color:#9AA0AB;font-weight:600;}
+.ka-cm-na-tag{font-size:11px;color:#AEB4BE;font-weight:600;}
+.ka-cm-body{font-size:13.5px;line-height:1.65;color:#3A4049;}
+.ka-cm-tool{font-size:11px;color:#9AA0AB;border:1px solid #E9ECF1;border-radius:8px;padding:1px 7px;margin-left:6px;white-space:nowrap;}
+.ka-cm-warn{font-size:12px;color:#C2410C;margin-top:5px;}
+.ka-cm-warn i{font-style:normal;}
+.ka-cor-color{display:flex;align-items:center;gap:8px;font-size:12.5px;color:#8B919C;margin-top:11px;padding-top:4px;}
+.ka-cor-chip{width:15px;height:15px;border-radius:5px;flex:none;border:1px solid #E0E0E0;}
 @media (max-width:1080px){.ka-cards{grid-template-columns:repeat(2,1fr);}.ka-row2{grid-template-columns:1fr;}.ka-grid{grid-template-columns:repeat(2,1fr);}}
 @media (max-width:720px){.ka-side{display:none;}.ka-cards{grid-template-columns:repeat(2,1fr);}.ka-grid{grid-template-columns:1fr;}}
 `;
