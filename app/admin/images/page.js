@@ -7,7 +7,7 @@ const CARDS = [
   { k: "누적 생성", v: "—" }, { k: "오늘 생성", v: "—" },
   { k: "평균 생성 시간", v: "—" }, { k: "생성 실패율", v: "—" },
 ];
-const FILTERS = ["전체", "카리나", "윈터", "제니", "장원영", "안유진", "아이유"];
+const FILTERS = ["전체", "시크 시티", "퓨어 시크", "걸 크러시", "러블리 글로우", "프레시 클리어", "소프트 데일리"];
 const SKELETON = Array.from({ length: 12 });
 
 export default function Images() {

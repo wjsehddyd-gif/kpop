@@ -46,22 +46,22 @@ function bootKpopApp() {
 
   /* ===== 연예인 DB (스타일 블록 + 얼굴 프로필 + 시그니처) ===== */
   var CELEBS = [
-    { id:"karina", name:"카리나", mood:"시크·도시적", sig:"선명한 눈매와 또렷한 윤곽",
+    { id:"karina", name:"시크 시티", mood:"시크·도시적", sig:"선명한 눈매와 또렷한 윤곽",
       face:{ faceShape:"oval", eyelid:"double", eyeShape:"upturned", eyeSize:"medium", jaw:"vline", skinTone:"cool" },
       blocks:{ skin:"세미매트~글로우", brow:"각진 일자 눈썹", shadow:"브라운 음영 섀도우", eyeliner:"또렷한 슬림 윙 라인", aegyo:"은은한 애교살", shading:"광대 아래·턱선 윤곽", blush:"은은한 로즈", lip:"로즈~누드 새틴", hair:"슬릭/웨이브" } },
-    { id:"winter", name:"윈터", mood:"청량·시크", sig:"청량하고 또렷한 눈매",
+    { id:"winter", name:"퓨어 시크", mood:"청량·시크", sig:"청량하고 또렷한 눈매",
       face:{ faceShape:"oval", eyelid:"double", eyeShape:"neutral", eyeSize:"medium", jaw:"vline", skinTone:"cool" },
       blocks:{ skin:"글로우 피부", brow:"자연 일자 눈썹", shadow:"코랄브라운 섀도우", eyeliner:"또렷하되 부드러운 라인", aegyo:"애교살 살짝", shading:"약한 윤곽", blush:"코랄 블러셔", lip:"MLBB 코랄", hair:"자연 결" } },
-    { id:"jennie", name:"제니", mood:"도도·트렌디", sig:"무드 있는 눈매와 시크함",
+    { id:"jennie", name:"걸 크러시", mood:"도도·트렌디", sig:"무드 있는 눈매와 시크함",
       face:{ faceShape:"round", eyelid:"double", eyeShape:"upturned", eyeSize:"medium", jaw:"round", skinTone:"neutral" },
       blocks:{ skin:"글로시 피부", brow:"또렷한 눈썹", shadow:"브라운 스모키", eyeliner:"스모키 라인", aegyo:"은은한 애교살", shading:"윤곽 강조", blush:"로즈브라운", lip:"글로시 누드~로즈", hair:"뱅/웨이브" } },
-    { id:"wonyoung", name:"장원영", mood:"청순·러블리", sig:"화사하고 러블리한 눈매",
+    { id:"wonyoung", name:"러블리 글로우", mood:"청순·러블리", sig:"화사하고 러블리한 눈매",
       face:{ faceShape:"oval", eyelid:"double", eyeShape:"neutral", eyeSize:"large", jaw:"vline", skinTone:"warm" },
       blocks:{ skin:"화사한 피부", brow:"자연 둥근 눈썹", shadow:"핑크/코랄 섀도우", eyeliner:"또렷+러블리 라인", aegyo:"애교살 밝게", shading:"약한 윤곽", blush:"핑크 애플", lip:"핑크 그라데이션", hair:"롱 웨이브" } },
-    { id:"yujin", name:"안유진", mood:"상큼·사랑스러움", sig:"맑고 또렷한 상큼함",
+    { id:"yujin", name:"프레시 클리어", mood:"상큼·사랑스러움", sig:"맑고 또렷한 상큼함",
       face:{ faceShape:"oval", eyelid:"double", eyeShape:"neutral", eyeSize:"medium", jaw:"vline", skinTone:"neutral" },
       blocks:{ skin:"깨끗한 피부", brow:"자연 눈썹", shadow:"코랄핑크 섀도우", eyeliner:"또렷한 라인", aegyo:"애교살 강조", shading:"약한 윤곽", blush:"코랄 블러셔", lip:"화사한 코랄", hair:"단정한 스타일" } },
-    { id:"iu", name:"아이유", mood:"청순·내추럴", sig:"맑은 피부와 자연스러운 눈매",
+    { id:"iu", name:"소프트 데일리", mood:"청순·내추럴", sig:"맑은 피부와 자연스러운 눈매",
       face:{ faceShape:"oval", eyelid:"double", eyeShape:"neutral", eyeSize:"medium", jaw:"vline", skinTone:"warm" },
       blocks:{ skin:"맑은 피부", brow:"자연 결 눈썹", shadow:"누드/코랄 섀도우", eyeliner:"옅은 자연 라인", aegyo:"애교살 자연", shading:"최소 윤곽", blush:"누드핑크", lip:"MLBB~코랄 틴트", hair:"단아한 스타일" } },
   ];

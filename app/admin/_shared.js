@@ -218,18 +218,18 @@ export const CSS = `
 
 // 회원 목록 목업 (대시보드/회원목록 공용)
 export const MEMBERS = [
-  { id: "minji_02", join: "2026-06-21", visits: 12, stay: "8:14", last: "방금 전", paid: true, celeb: "카리나", gen: 9 },
-  { id: "yuna_kim", join: "2026-06-20", visits: 7, stay: "5:02", last: "12분 전", paid: false, celeb: "윈터", gen: 4 },
-  { id: "soohyun99", join: "2026-06-19", visits: 21, stay: "11:30", last: "1시간 전", paid: true, celeb: "제니", gen: 15 },
-  { id: "haru_x", join: "2026-06-18", visits: 3, stay: "2:48", last: "3시간 전", paid: false, celeb: "장원영", gen: 1 },
-  { id: "jiwoo__", join: "2026-06-18", visits: 9, stay: "6:21", last: "어제", paid: false, celeb: "카리나", gen: 6 },
-  { id: "nayeon_p", join: "2026-06-17", visits: 16, stay: "9:55", last: "어제", paid: true, celeb: "안유진", gen: 11 },
-  { id: "seo_dable", join: "2026-06-16", visits: 5, stay: "3:40", last: "2일 전", paid: false, celeb: "윈터", gen: 3 },
-  { id: "hyun_22", join: "2026-06-15", visits: 28, stay: "14:02", last: "2일 전", paid: true, celeb: "제니", gen: 19 },
-  { id: "mina_lee", join: "2026-06-14", visits: 4, stay: "2:10", last: "3일 전", paid: false, celeb: "아이유", gen: 2 },
-  { id: "rara_kk", join: "2026-06-13", visits: 11, stay: "7:33", last: "4일 전", paid: false, celeb: "카리나", gen: 7 },
-  { id: "doyeon_x", join: "2026-06-12", visits: 6, stay: "4:18", last: "5일 전", paid: false, celeb: "장원영", gen: 4 },
-  { id: "sumin_03", join: "2026-06-11", visits: 33, stay: "18:47", last: "6일 전", paid: true, celeb: "윈터", gen: 24 },
+  { id: "minji_02", join: "2026-06-21", visits: 12, stay: "8:14", last: "방금 전", paid: true, celeb: "시크 시티", gen: 9 },
+  { id: "yuna_kim", join: "2026-06-20", visits: 7, stay: "5:02", last: "12분 전", paid: false, celeb: "퓨어 시크", gen: 4 },
+  { id: "soohyun99", join: "2026-06-19", visits: 21, stay: "11:30", last: "1시간 전", paid: true, celeb: "걸 크러시", gen: 15 },
+  { id: "haru_x", join: "2026-06-18", visits: 3, stay: "2:48", last: "3시간 전", paid: false, celeb: "러블리 글로우", gen: 1 },
+  { id: "jiwoo__", join: "2026-06-18", visits: 9, stay: "6:21", last: "어제", paid: false, celeb: "시크 시티", gen: 6 },
+  { id: "nayeon_p", join: "2026-06-17", visits: 16, stay: "9:55", last: "어제", paid: true, celeb: "프레시 클리어", gen: 11 },
+  { id: "seo_dable", join: "2026-06-16", visits: 5, stay: "3:40", last: "2일 전", paid: false, celeb: "퓨어 시크", gen: 3 },
+  { id: "hyun_22", join: "2026-06-15", visits: 28, stay: "14:02", last: "2일 전", paid: true, celeb: "걸 크러시", gen: 19 },
+  { id: "mina_lee", join: "2026-06-14", visits: 4, stay: "2:10", last: "3일 전", paid: false, celeb: "소프트 데일리", gen: 2 },
+  { id: "rara_kk", join: "2026-06-13", visits: 11, stay: "7:33", last: "4일 전", paid: false, celeb: "시크 시티", gen: 7 },
+  { id: "doyeon_x", join: "2026-06-12", visits: 6, stay: "4:18", last: "5일 전", paid: false, celeb: "러블리 글로우", gen: 4 },
+  { id: "sumin_03", join: "2026-06-11", visits: 33, stay: "18:47", last: "6일 전", paid: true, celeb: "퓨어 시크", gen: 24 },
 ];
 
 export function MemberTable() {

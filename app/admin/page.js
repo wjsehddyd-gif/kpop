@@ -18,9 +18,9 @@ const VISITS_7D = [
   { d: "목", v: 80 }, { d: "금", v: 96 }, { d: "토", v: 124 }, { d: "일", v: 87 },
 ];
 const CELEBS = [
-  { name: "카리나", pct: 32, color: "#3B5BFE" }, { name: "윈터", pct: 24, color: "#5C7CFA" },
-  { name: "제니", pct: 18, color: "#26C6A6" }, { name: "장원영", pct: 14, color: "#9C6BFF" },
-  { name: "안유진", pct: 8, color: "#F59E0B" }, { name: "아이유", pct: 4, color: "#94A3B8" },
+  { name: "시크 시티", pct: 32, color: "#3B5BFE" }, { name: "퓨어 시크", pct: 24, color: "#5C7CFA" },
+  { name: "걸 크러시", pct: 18, color: "#26C6A6" }, { name: "러블리 글로우", pct: 14, color: "#9C6BFF" },
+  { name: "프레시 클리어", pct: 8, color: "#F59E0B" }, { name: "소프트 데일리", pct: 4, color: "#94A3B8" },
 ];
 
 function donutSvg() {
