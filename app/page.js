@@ -169,7 +169,7 @@ function bootKpopApp() {
   }
 
   /* ===== 상태/렌더 ===== */
-  var S = { phase:"landing", selfie:null, celebId:null, profile:defaultProfile(), result:null, guideStep:0, mode:null, checks:{}, error:null };
+  var S = { phase:"landing", selfie:null, celebId:null, profile:defaultProfile(), result:null, guideStep:0, mode:null, checks:{}, resultImage:null, genStatus:null, genError:null, error:null };
   var root=document.getElementById("shell");
   function esc(s){ return String(s).replace(/[&<>"]/g,function(c){return({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"})[c];}); }
 
@@ -236,7 +236,7 @@ function bootKpopApp() {
     var r=S.result;
     var out="";
     // 1. 결과 이미지 (셀카, 원본)
-    if(S.selfie){ out+='<div class="result-photo"><img src="'+S.selfie+'" alt="내 사진"><span class="mock-badge">스타일 적용 전 · 원본</span></div>'; out+='<p class="note">AI 스타일 결과 이미지는 생성 모델 연결 시 이 자리에 표시돼요. 지금은 분석·추천 결과를 보여줍니다.</p>'; }
+    if(S.selfie){ out+='<div class="result-photo"><img src="'+S.selfie+'" alt="내 사진"><span class="mock-badge">스타일 적용 전 · 원본</span></div>'; out+=genBlock(r); }
     // 2. 선택한 연예인
     out+='<div class="sec-title">선택한 연예인</div><p class="reason-text"><b>'+esc(r.celeb.name)+'</b> 스타일</p>';
     // 3. 선택된 세트
@@ -562,7 +562,7 @@ function bootKpopApp() {
       out+='<div class="goal-box"><div class="gl">목표 효과</div><div class="gv">'+esc(step.goal)+'</div></div>';
     }
     if(isF){
-      out+='<div class="split"><div class="split-cell"><div class="frame">'+(S.selfie?'<img src="'+S.selfie+'" alt="원본">':'<div class="ph">원본 셀카 없음</div>')+'</div><p class="split-cap">원본 셀카</p></div><div class="split-cell"><div class="frame"><div class="ph">AI 스타일 결과 이미지는<br>생성 모델 연결 후<br>표시됩니다.</div></div><p class="split-cap">'+esc(r.celeb.name)+' 스타일 결과</p></div></div>';
+      out+='<div class="split"><div class="split-cell"><div class="frame">'+(S.selfie?'<img src="'+S.selfie+'" alt="원본">':'<div class="ph">원본 셀카 없음</div>')+'</div><p class="split-cap">원본 셀카</p></div><div class="split-cell"><div class="frame">'+(S.resultImage?'<img src="'+S.resultImage+'" alt="AI 결과">':'<div class="ph">AI 스타일 결과는<br>결과 화면에서<br>생성할 수 있어요.</div>')+'</div><p class="split-cap">'+esc(r.celeb.name)+' 스타일 결과</p></div></div>';
       out+='<p class="confidence">현재 가이드는 선택한 스타일의 핵심 요소를 기준으로 만들어졌어요. 실제 결과는 얼굴형·피부 상태·사용한 제품에 따라 달라질 수 있어요.</p>';
       out+='<div class="sec-title">오늘 적용한 항목</div><div class="checklist">';
       CHECK_ITEMS.forEach(function(ci){ var on=!!S.checks[ci.k]; out+='<button class="cl-item'+(on?" done":"")+'" data-check="'+ci.k+'"><span class="cl-box">'+(on?"✓":"")+'</span><span class="cl-l">'+esc(ci.l)+'</span></button>'; });
@@ -574,6 +574,49 @@ function bootKpopApp() {
     return out;
   }
 
+  // === AI 결과 이미지 생성 (OpenAI 이미지 편집) ===
+  function genBlock(r){
+    if(S.genStatus==="loading"){
+      return '<div class="genwrap"><div class="genload"><span class="genspin"></span>AI가 '+esc(r.celeb.name)+' 스타일 결과를 그리는 중… (15~40초)</div></div>';
+    }
+    if(S.resultImage){
+      return '<div class="genwrap"><div class="result-photo"><img src="'+S.resultImage+'" alt="AI 스타일 결과"><span class="mock-badge done">AI 스타일 결과 · 참고용</span></div>'
+        +'<p class="gen-note">실제 얼굴·제품에 따라 달라질 수 있어요. 마음에 안 들면 다시 생성해 보세요.</p>'
+        +'<button class="btn-ghost" id="gen-btn">다시 생성하기</button></div>';
+    }
+    var err = S.genError ? '<p class="gen-err">'+esc(S.genError)+'</p>' : '';
+    return '<div class="genwrap"><button class="btn" id="gen-btn">✨ AI 스타일 결과 이미지 생성</button>'
+      +'<p class="gen-note">선택한 '+esc(r.celeb.name)+' 스타일을 내 셀카에 입힌 예상 이미지를 만들어요. (생성 AI · 약 15~40초, 얼굴이 다소 변형될 수 있어요.)</p>'+err+'</div>';
+  }
+  function buildStylePrompt(r){
+    var b=(r&&r.celeb&&r.celeb.blocks)||{};
+    var parts=[];
+    if(b.skin) parts.push("base/skin: "+b.skin);
+    if(b.brow) parts.push("brows: "+b.brow);
+    if(b.shadow) parts.push("eyeshadow: "+b.shadow);
+    if(b.eyeliner) parts.push("eyeliner: "+b.eyeliner);
+    if(b.aegyo) parts.push("under-eye: "+b.aegyo);
+    if(b.shading) parts.push("contour: "+b.shading);
+    if(b.blush) parts.push("blush: "+b.blush);
+    if(b.lip) parts.push("lips: "+b.lip);
+    if(b.hair) parts.push("hair: "+b.hair);
+    return "Apply a Korean K-pop idol makeup look inspired by "+r.celeb.name+" ("+r.celeb.mood+") to the person in this photo. "
+      + "Keep the same person, face shape and identity; only add makeup and hair styling. "
+      + "Photorealistic beauty portrait, soft studio lighting, natural skin texture, high detail. "
+      + "Makeup details — "+parts.join("; ")+".";
+  }
+  function generateResultImage(){
+    if(!S.selfie || !S.result || S.genStatus==="loading") return;
+    S.genStatus="loading"; S.genError=null; render();
+    fetch("/api/generate",{ method:"POST", headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({ image:S.selfie, prompt:buildStylePrompt(S.result) }) })
+      .then(function(res){ return res.json().then(function(j){ return {ok:res.ok, j:j}; }); })
+      .then(function(o){
+        if(!o.ok || !o.j || !o.j.image){ throw new Error((o.j&&o.j.error)||"이미지 생성에 실패했어요. 잠시 후 다시 시도해 주세요."); }
+        S.resultImage=o.j.image; S.genStatus="done"; render();
+      })
+      .catch(function(e){ S.genStatus="error"; S.genError=(e&&e.message)||"오류가 발생했어요."; render(); });
+  }
   function bind(){
     var back=document.getElementById("back");
     if(back) back.onclick=function(){ var p=S.phase; if(p==="upload")go("landing"); else if(p==="celeb")go("upload"); else if(p==="diagnose")go("celeb"); else if(p==="result")go("diagnose"); else if(p==="overview")go("result"); else if(p==="guide")go("overview"); };
@@ -583,6 +626,7 @@ function bootKpopApp() {
     Array.prototype.forEach.call(document.querySelectorAll("[data-q]"),function(b){ b.onclick=function(){ S.profile[b.getAttribute("data-q")]=b.getAttribute("data-v"); render(); }; });
     Array.prototype.forEach.call(document.querySelectorAll("[data-switch]"),function(b){ b.onclick=function(){ S.celebId=b.getAttribute("data-switch"); S.result=optimize(S.celebId,S.profile,S.selfie); go("result"); }; });
     var id=function(x){return document.getElementById(x);};
+    if(id("gen-btn")) id("gen-btn").onclick=function(){ generateResultImage(); };
     if(id("to-start")) id("to-start").onclick=function(){ go("upload"); };
     if(id("to-celeb")) id("to-celeb").onclick=function(){ go("celeb"); };
     if(id("to-diagnose")) id("to-diagnose").onclick=function(){ go("diagnose"); };
@@ -594,7 +638,7 @@ function bootKpopApp() {
     if(id("g-next")) id("g-next").onclick=function(){ var tg=guideSteps(S.result,S.mode).length+2; if(S.guideStep>=tg-1){go("result");} else {S.guideStep++;render();} };
     if(id("to-celeb2")) id("to-celeb2").onclick=function(){ go("celeb"); };
     if(id("to-result2")) id("to-result2").onclick=function(){ go("result"); };
-    if(id("restart")) id("restart").onclick=function(){ S={phase:"landing",selfie:null,celebId:null,profile:defaultProfile(),result:null,guideStep:0,mode:null,checks:{},error:null}; render(); };
+    if(id("restart")) id("restart").onclick=function(){ S={phase:"landing",selfie:null,celebId:null,profile:defaultProfile(),result:null,guideStep:0,mode:null,checks:{},resultImage:null,genStatus:null,genError:null,error:null}; render(); };
   }
   render();
 }
