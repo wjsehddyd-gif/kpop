@@ -17,6 +17,7 @@ export function Sidebar({ active }) {
       {item("/admin/members", "visits", "🕒", "방문 · 체류 분석")}
       <div className="ka-sec">콘텐츠</div>
       {item("/admin/styles", "styles", "💄", "스타일 도감")}
+      {item("/admin/blocks", "blocks", "🧩", "부위별 도감")}
       {item("/admin/styles", "images", "🖼️", "생성 이미지")}
       <div className="ka-foot">K-POP 회원 관제<br />· 띵동/Life+ 자회사</div>
     </aside>
@@ -100,6 +101,30 @@ export const CSS = `
 .ka-dex-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px;}
 .ka-dex-tag{font-size:11px;font-weight:700;padding:3px 9px;border-radius:99px;background:#F2F4F7;color:#5B616C;}
 .ka-dex-set{font-size:11px;color:#AEB4BE;margin-top:12px;font-weight:600;}
+.ka-blk{padding:14px 0;border-top:1px solid #F2F4F7;}
+.ka-blk:first-of-type{border-top:0;}
+.ka-blk-head{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:8px;}
+.ka-blk-name{font-size:14px;font-weight:800;color:#1B1F2A;}
+.ka-blk-cnt{font-size:11px;font-weight:700;color:#3B5BFE;background:#E8EDFF;padding:2px 8px;border-radius:99px;}
+.ka-blk-tools{display:flex;gap:6px;flex-wrap:wrap;margin-left:auto;}
+.ka-blk-tip{display:flex;flex-direction:column;gap:3px;font-size:12px;color:#6B717C;line-height:1.5;margin-bottom:10px;}
+.ka-blk-tip b{color:#9AA0AB;font-weight:700;margin-right:5px;font-size:11px;}
+.ka-blk-warn{color:#C2410C;}
+.ka-blk-warn b{color:#EA9A66;}
+.ka-blk-generic{font-size:12.5px;color:#9AA0AB;padding:8px 12px;background:#FAFBFD;border-radius:10px;}
+.ka-vlist{display:flex;flex-direction:column;gap:6px;}
+.ka-vrow{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:9px 12px;background:#FAFBFD;border:1px solid #F0F2F5;border-radius:10px;}
+.ka-vrow.dup{background:#FFF7ED;border-color:#FCE3C7;}
+.ka-vtext{font-size:13px;font-weight:600;color:#3A4049;}
+.ka-vwho{display:flex;align-items:center;gap:5px;flex-wrap:wrap;justify-content:flex-end;}
+.ka-who-chip{font-size:11px;font-weight:700;color:#5B616C;background:#EEF1F5;padding:2px 8px;border-radius:99px;}
+.ka-dup-flag{font-size:10.5px;font-weight:800;color:#C2410C;background:#FDE9D2;padding:2px 8px;border-radius:99px;}
+.ka-corr{margin-top:14px;padding-top:14px;border-top:1px dashed #E4E8EE;}
+.ka-corr-title{font-size:13px;font-weight:800;color:#3B5BFE;margin-bottom:10px;}
+.ka-corr-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;}
+.ka-corr-card{background:#F7F9FC;border:1px solid #EAEEF3;border-radius:12px;padding:12px 14px;}
+.ka-corr-name{font-size:12.5px;font-weight:800;color:#1B1F2A;margin-bottom:8px;}
+.ka-corr-steps{margin:0;padding-left:16px;font-size:12px;color:#5B616C;line-height:1.7;}
 @media (max-width:1080px){.ka-cards{grid-template-columns:repeat(2,1fr);}.ka-row2{grid-template-columns:1fr;}.ka-grid{grid-template-columns:repeat(2,1fr);}}
 @media (max-width:720px){.ka-side{display:none;}.ka-cards{grid-template-columns:repeat(2,1fr);}.ka-grid{grid-template-columns:1fr;}}
 `;
