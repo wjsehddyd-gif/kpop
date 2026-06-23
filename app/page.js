@@ -661,19 +661,22 @@ function bootKpopApp() {
     var corr=[];
     ((r&&r.patches)||[]).forEach(function(p){ var s=fx(p.axis,p.val); if(s && corr.indexOf(s)<0) corr.push(s); });
 
-    var prompt = "Edit THIS exact photo. Apply a realistic Korean K-pop idol MAKEUP look inspired by "+r.celeb.name+" ("+r.celeb.mood+") to the SAME person, as if they did this makeup on themselves.\n\n"
-      + "MAKEUP STYLE TO APPLY:\n- "+look.join("\n- ")+"\n\n";
+    var prompt =
+      "ABSOLUTE PRIORITY: This is a MAKEUP TRY-ON. Edit ONLY the makeup on the existing photo. This is NOT a portrait generator.\n"
+      + "DO NOT reshape the face. DO NOT reconstruct facial features. DO NOT apply any plastic-surgery, jaw-shaving, nose-job, eye-enlarging or face-slimming effect. DO NOT beautify or face-tune. The person's bone structure must be 100% preserved.\n\n"
+      + "Take THIS exact photo of this specific person and apply a realistic Korean makeup look inspired by "+r.celeb.name+" ("+r.celeb.mood+"), exactly as a professional makeup artist would achieve with real cosmetics on this same face.\n\n"
+      + "MAKEUP TO APPLY (color cosmetics + hair styling only):\n- "+look.join("\n- ")+"\n\n";
     if(corr.length){
-      prompt += "PERSONALIZED ADJUSTMENTS for THIS face (achieve with makeup technique ONLY — contouring, highlighting, eyeliner, shadow, color; never by reshaping):\n- "+corr.join("\n- ")+"\n\n";
+      prompt += "PERSONALIZED ADJUSTMENTS for THIS face — achieve with MAKEUP TECHNIQUE ONLY (contour shadow, highlight, eyeliner, eyeshadow, color). NEVER by reshaping geometry:\n- "+corr.join("\n- ")+"\n\n";
     }
-    prompt += "STRICT RULES — must NOT be broken:\n"
-      + "1) Keep the SAME person. Identity, face shape, bone structure, jaw width, chin, nose shape and height, eye shape, eye spacing and facial proportions must stay EXACTLY as in the original photo.\n"
-      + "2) Any slimming or V-line effect must come ONLY from contour SHADOW (a darker shade on the skin), never by narrowing or reshaping the face. The face outline stays unchanged.\n"
-      + "3) Do NOT apply a face-slimming / beauty / face-tune filter. Do NOT make the person look like a different or more 'ideal' face.\n"
-      + "4) Keep natural, realistic skin texture (visible pores, real skin) — no plastic or over-airbrushed look.\n"
-      + "5) Keep the same age, ethnicity, head angle, expression and background.\n"
-      + "6) Only change makeup (color cosmetics) and hair styling. Everything else stays identical.\n\n"
-      + "Output: one photorealistic image of the same person wearing this makeup.";
+    prompt +=
+      "WHAT REAL MAKEUP CAN CHANGE (allowed): skin tone/coverage, contour & highlight (shadow illusion only), blush, eyebrow shape via pencil, eye look via shadow/liner/lashes (illusion only), lip color & shape via lipstick, and hair styling.\n"
+      + "WHAT MUST STAY 100% IDENTICAL TO THE ORIGINAL PHOTO (forbidden to change): face width, face length, jaw bone shape and width, chin shape, cheekbone structure, nose width/length/height, eye size, eye shape, eye spacing, and overall facial proportions and identity. The face OUTLINE in the result must trace exactly over the original.\n\n"
+      + "Think of it as a strict before/after: if you laid the result over the original, every facial bone line, the jaw, the nose and the eye outlines must overlap perfectly. Only the makeup colors/shading and the hair differ.\n"
+      + "A square or round jaw stays square or round in the OUTLINE; any V-line effect is ONLY darker contour shadow painted on the skin, never an actual change of the jaw shape.\n"
+      + "Keep natural realistic skin texture with visible pores. Keep the same age, ethnicity, head angle, expression, lighting and background.\n\n"
+      + "REPEAT — the single most important rule: change the MAKEUP and HAIR only; do NOT change the underlying face. No face reshaping. No facial reconstruction. No plastic surgery look. Makeup only.\n"
+      + "Output: one photorealistic photo of the SAME person, same face, wearing this makeup.";
     return prompt;
   }
   function generateResultImage(){
