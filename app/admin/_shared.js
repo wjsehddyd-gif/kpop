@@ -179,6 +179,7 @@ export const CSS = `
 /* 빈 상태 / 스켈레톤 차트 (데이터 연결 시 같은 자리에 채워짐) */
 .ka-card-empty{font-size:11px;color:#B6BCC6;font-weight:600;margin-top:8px;}
 .ka-chart{position:relative;height:200px;}
+.ka-chart-wrap{position:relative;}
 .ka-chart-heat{height:auto;}
 .ka-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;}
 .ka-empty-pill{font-size:12px;font-weight:700;color:#9AA0AB;background:#F4F6F9;border:1px solid #E9ECF1;border-radius:99px;padding:6px 14px;}
