@@ -44,6 +44,9 @@ export const CSS = `
 .ka-card-v{font-size:23px;font-weight:800;color:#1B1F2A;display:flex;align-items:baseline;gap:3px;}
 .ka-card-s{font-size:12px;font-weight:600;color:#A2A8B2;}
 .ka-sub2{display:flex;align-items:center;gap:6px;margin-top:9px;font-size:11.5px;font-weight:600;}
+.ka-card-vrow{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;}
+.ka-delta-wrap{display:flex;flex-direction:column;align-items:flex-end;gap:3px;padding-bottom:3px;}
+.ka-delta-cap{font-size:10.5px;color:#A2A8B2;font-weight:600;white-space:nowrap;}
 .ka-delta{display:inline-flex;align-items:center;gap:2px;padding:2px 7px;border-radius:99px;font-weight:700;}
 .ka-delta.up{background:#E6F7ED;color:#16A34A;}
 .ka-delta.down{background:#FDECEC;color:#EF4444;}

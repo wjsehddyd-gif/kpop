@@ -55,15 +55,16 @@ export default function Dash() {
           {SUMMARY.map((c, i) => (
             <div className="ka-card" key={i}>
               <div className="ka-card-k">{c.k}</div>
-              <div className="ka-card-v">{c.v}<span className="ka-card-s">{c.s}</span></div>
-              {(c.delta || c.extra || c.live) && (
-                <div className="ka-sub2">
-                  {c.delta && <span className={"ka-delta " + c.delta.dir}>{c.delta.dir === "up" ? "▲" : "▼"} {c.delta.val}</span>}
-                  {c.delta && <span className="ka-extra">지난달 대비</span>}
-                  {c.extra && <span className="ka-extra"><b>{c.extra}</b></span>}
-                  {c.live && <span className="ka-extra">· 실시간</span>}
-                </div>
-              )}
+              <div className="ka-card-vrow">
+                <div className="ka-card-v">{c.v}<span className="ka-card-s">{c.s}</span></div>
+                {c.delta && (
+                  <span className="ka-delta-wrap">
+                    <span className={"ka-delta " + c.delta.dir}>{c.delta.dir === "up" ? "▲" : "▼"} {c.delta.val}</span>
+                    <span className="ka-delta-cap">지난달 대비{c.live ? " · 실시간" : ""}</span>
+                  </span>
+                )}
+              </div>
+              {c.extra && <div className="ka-sub2"><span className="ka-extra"><b>{c.extra}</b></span></div>}
             </div>
           ))}
         </div>
@@ -98,10 +99,6 @@ export default function Dash() {
           </div>
         </div>
 
-        <Link href="/admin/members" className="ka-cta">
-          <div className="ka-cta-l"><b>회원 목록 전체 보기</b><p>아이디·가입일·방문·체류·등급·생성수 전체 회원 1,248명</p></div>
-          <span className="ka-cta-go">회원 목록 →</span>
-        </Link>
       </main>
     </div>
   );
