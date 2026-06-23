@@ -14,12 +14,12 @@ export function Sidebar({ active }) {
       <div className="ka-sec">회원 관리</div>
       {item("/admin", "dash", "📊", "회원 대시보드")}
       {item("/admin/members", "members", "👥", "회원 목록")}
-      {item("/admin/members", "visits", "🕒", "방문 · 체류 분석")}
+      {item("/admin/visits", "visits", "🕒", "방문 · 체류 분석")}
       <div className="ka-sec">콘텐츠</div>
       {item("/admin/styles", "styles", "💄", "스타일 도감")}
       {item("/admin/blocks", "blocks", "🧩", "부위별 도감")}
       {item("/admin/correction", "correction", "🎯", "보정 도감")}
-      {item("/admin/styles", "images", "🖼️", "생성 이미지")}
+      {item("/admin/images", "images", "🖼️", "생성 이미지")}
       <div className="ka-foot">K-POP 회원 관제<br />· 띵동/Life+ 자회사</div>
     </aside>
   );
@@ -176,6 +176,42 @@ export const CSS = `
 .ka-cm-warn i{font-style:normal;}
 .ka-cor-color{display:flex;align-items:center;gap:8px;font-size:12.5px;color:#8B919C;margin-top:11px;padding-top:4px;}
 .ka-cor-chip{width:15px;height:15px;border-radius:5px;flex:none;border:1px solid #E0E0E0;}
+/* 빈 상태 / 스켈레톤 차트 (데이터 연결 시 같은 자리에 채워짐) */
+.ka-card-empty{font-size:11px;color:#B6BCC6;font-weight:600;margin-top:8px;}
+.ka-chart{position:relative;height:200px;}
+.ka-chart-heat{height:auto;}
+.ka-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;}
+.ka-empty-pill{font-size:12px;font-weight:700;color:#9AA0AB;background:#F4F6F9;border:1px solid #E9ECF1;border-radius:99px;padding:6px 14px;}
+.ka-skel-bars{display:flex;align-items:flex-end;justify-content:space-around;height:100%;padding:0 4px 26px;gap:10px;}
+.ka-skel-col{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;position:relative;}
+.ka-skel-bar{width:100%;max-width:46px;height:30%;background:repeating-linear-gradient(135deg,#F1F3F7,#F1F3F7 6px,#EAEDF2 6px,#EAEDF2 12px);border-radius:8px 8px 0 0;}
+.ka-skel-x{position:absolute;bottom:-22px;font-size:11px;color:#9AA0AB;white-space:nowrap;}
+.ka-heat{display:grid;grid-template-columns:34px repeat(6,1fr);gap:6px;}
+.ka-heat-corner{}
+.ka-heat-htop{font-size:11px;color:#9AA0AB;text-align:center;padding-bottom:2px;}
+.ka-heat-yl{font-size:11px;color:#9AA0AB;display:flex;align-items:center;}
+.ka-heat-cell{height:26px;border-radius:6px;background:#F1F3F7;}
+.ka-stay-list{display:flex;flex-direction:column;gap:11px;position:relative;min-height:60px;}
+.ka-stay-row{display:flex;align-items:center;gap:12px;}
+.ka-stay-name{width:84px;flex:none;font-size:13px;font-weight:600;color:#3A4049;}
+.ka-stay-track{flex:1;height:12px;background:#EEF1F5;border-radius:99px;overflow:hidden;}
+.ka-stay-fill{display:block;height:100%;width:0;background:#C9D2FF;border-radius:99px;}
+.ka-stay-val{width:44px;flex:none;text-align:right;font-size:12.5px;font-weight:700;color:#9AA0AB;}
+.ka-stay-empty{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#9AA0AB;background:rgba(255,255,255,.4);}
+/* 필터 칩 */
+.ka-filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;}
+.ka-filter{font-size:12.5px;font-weight:600;color:#5B616C;background:#fff;border:1px solid #E9ECF1;border-radius:99px;padding:6px 13px;}
+.ka-filter.on{background:#1E2433;color:#fff;border-color:#1E2433;}
+/* 이미지 그리드 */
+.ka-imgwrap{position:relative;}
+.ka-img-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+.ka-img-card{background:#fff;border:1px solid #E9ECF1;border-radius:14px;overflow:hidden;}
+.ka-img-thumb{aspect-ratio:3/4;background:repeating-linear-gradient(135deg,#F4F6F9,#F4F6F9 10px,#EEF1F5 10px,#EEF1F5 20px);}
+.ka-img-meta{padding:9px 11px;}
+.ka-img-id{display:block;font-size:12px;font-weight:700;color:#B6BCC6;}
+.ka-img-sub{display:block;font-size:11px;color:#C2C7D0;margin-top:2px;}
+@media (max-width:1080px){.ka-img-grid{grid-template-columns:repeat(3,1fr);}}
+@media (max-width:720px){.ka-img-grid{grid-template-columns:repeat(2,1fr);}.ka-heat{grid-template-columns:28px repeat(6,1fr);}}
 @media (max-width:1080px){.ka-cards{grid-template-columns:repeat(2,1fr);}.ka-row2{grid-template-columns:1fr;}.ka-grid{grid-template-columns:repeat(2,1fr);}}
 @media (max-width:720px){.ka-side{display:none;}.ka-cards{grid-template-columns:repeat(2,1fr);}.ka-grid{grid-template-columns:1fr;}}
 `;
