@@ -20,6 +20,8 @@ export function Sidebar({ active }) {
       {item("/admin/blocks", "blocks", "🧩", "부위별 도감")}
       {item("/admin/correction", "correction", "🎯", "보정 도감")}
       {item("/admin/images", "images", "🖼️", "생성 이미지")}
+      <div className="ka-sec">연동</div>
+      {item("/admin/integration", "integration", "🔌", "외부연동")}
       <div className="ka-foot">K-POP 회원 관제<br />· 띵동/Life+ 자회사</div>
     </aside>
   );
@@ -176,6 +178,16 @@ export const CSS = `
 .ka-cm-warn i{font-style:normal;}
 .ka-cor-color{display:flex;align-items:center;gap:8px;font-size:12.5px;color:#8B919C;margin-top:11px;padding-top:4px;}
 .ka-cor-chip{width:15px;height:15px;border-radius:5px;flex:none;border:1px solid #E0E0E0;}
+.ka-intg-list{display:flex;flex-direction:column;gap:10px;}
+.ka-intg{display:flex;align-items:center;gap:14px;background:#fff;border:1px solid #EAEDF2;border-radius:14px;padding:16px 18px;}
+.ka-intg-ic{width:42px;height:42px;flex:none;display:flex;align-items:center;justify-content:center;font-size:20px;background:#F4F6F9;border-radius:11px;}
+.ka-intg-body{flex:1;min-width:0;}
+.ka-intg-name{font-size:14.5px;font-weight:800;color:#1B1F2A;}
+.ka-intg-desc{font-size:12.5px;color:#8B919C;margin-top:3px;}
+.ka-intg-status{font-size:12px;font-weight:700;padding:5px 12px;border-radius:99px;white-space:nowrap;flex:none;}
+.ka-ist-on{background:#E3F7EF;color:#0E9F8E;}
+.ka-ist-wait{background:#FFF4ED;color:#C2410C;}
+.ka-ist-off{background:#F0F2F5;color:#9AA0AB;}
 /* 빈 상태 / 스켈레톤 차트 (데이터 연결 시 같은 자리에 채워짐) */
 .ka-card-empty{font-size:11px;color:#B6BCC6;font-weight:600;margin-top:8px;}
 .ka-chart{position:relative;height:200px;}
