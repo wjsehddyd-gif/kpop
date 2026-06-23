@@ -4,9 +4,11 @@ import { Sidebar } from "../_shared";
 import { JAW } from "./_jaw";
 import { EYE } from "./_eye";
 import { FACE } from "./_face";
+import { NOSE } from "./_nose";
+import { LIP } from "./_lip";
 
 // 추후 부위 추가 시 여기에 import 후 PARTS 배열에 넣기만 하면 도감에 자동 반영.
-const PARTS = [JAW, EYE, FACE];
+const PARTS = [JAW, EYE, FACE, NOSE, LIP];
 
 function KindBadge({ m }) {
   if (m.na) return <span className="ka-cm-kind k-na"><i>✕</i> {m.kind === "tool" ? "도구" : m.kind === "hair" ? "헤어" : "색조"}</span>;
