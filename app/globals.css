@@ -465,3 +465,8 @@ button { font-family: inherit; cursor: pointer; }
   .device-stage { padding: 0; background: var(--ink); }
   .device { width: 100%; height: 100dvh; border: 0; border-radius: 0; box-shadow: none; }
 }
+
+
+/* ===== 스크롤바 숨김 (스크롤은 유지) ===== */
+.app { scrollbar-width: none; -ms-overflow-style: none; }
+.app::-webkit-scrollbar { width: 0; height: 0; display: none; }
