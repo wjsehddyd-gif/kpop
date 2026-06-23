@@ -613,20 +613,68 @@ function bootKpopApp() {
   }
   function buildStylePrompt(r){
     var b=(r&&r.celeb&&r.celeb.blocks)||{};
-    var parts=[];
-    if(b.skin) parts.push("base/skin: "+b.skin);
-    if(b.brow) parts.push("brows: "+b.brow);
-    if(b.shadow) parts.push("eyeshadow: "+b.shadow);
-    if(b.eyeliner) parts.push("eyeliner: "+b.eyeliner);
-    if(b.aegyo) parts.push("under-eye: "+b.aegyo);
-    if(b.shading) parts.push("contour: "+b.shading);
-    if(b.blush) parts.push("blush: "+b.blush);
-    if(b.lip) parts.push("lips: "+b.lip);
-    if(b.hair) parts.push("hair: "+b.hair);
-    return "Apply a Korean K-pop idol makeup look inspired by "+r.celeb.name+" ("+r.celeb.mood+") to the person in this photo. "
-      + "Keep the same person, face shape and identity; only add makeup and hair styling. "
-      + "Photorealistic beauty portrait, soft studio lighting, natural skin texture, high detail. "
-      + "Makeup details — "+parts.join("; ")+".";
+    var look=[];
+    if(b.skin) look.push("base/skin: "+b.skin);
+    if(b.brow) look.push("brows: "+b.brow);
+    if(b.shadow) look.push("eyeshadow: "+b.shadow);
+    if(b.eyeliner) look.push("eyeliner: "+b.eyeliner);
+    if(b.aegyo) look.push("under-eye/aegyo: "+b.aegyo);
+    if(b.shading) look.push("contour: "+b.shading);
+    if(b.blush) look.push("blush: "+b.blush);
+    if(b.lip) look.push("lips: "+b.lip);
+    if(b.hair) look.push("hair styling: "+b.hair);
+    // 진단된 보정(patches)을 "화장으로 하는 동작"으로 번역. 골격 변경은 금지, 음영/색으로만.
+    function fx(axis,val){
+      var celebTone=(r&&r.celeb&&r.celeb.face&&r.celeb.face.skinTone)||"neutral";
+      if(axis==="skinTone"){
+        var dir = celebTone==="cool" ? "a cool (pink/rose) undertone — cool rose or mauve lip, pink-based base"
+                : celebTone==="warm" ? "a warm (peach) undertone — coral or warm-nude lip, peach-based base"
+                : "a neutral undertone — neutral rose lip, balanced base";
+        return "Skin reads "+val+"-toned; shift the makeup undertone toward "+dir+" to suit this look (color choice only).";
+      }
+      var M={
+        faceShape:{
+          round:"Face reads round — add soft cheek/temple contour shadow for gentle definition (shadow only; do NOT narrow the real face outline).",
+          square:"Face reads square — lightly contour temples and outer jaw with shadow to soften angles (do NOT change the real bone outline).",
+          oblong:"Face reads long — place blush and contour more horizontally to balance length (color/shadow only).",
+          heart:"Face reads heart-shaped — soften forehead sides and balance the chin with light contour (shadow only)."
+        },
+        jaw:{
+          square:"Jaw is angular/square — apply contour SHADOW from under the cheekbone toward the chin for a slimmer V-line ILLUSION. Shadow only: the actual jaw width, bone outline and chin must stay EXACTLY as in the photo.",
+          round:"Jaw is round — add light contour shadow along the jawline for subtle definition (shadow illusion only; real jaw outline unchanged)."
+        },
+        eyelid:{
+          monolid:"Eyes are monolid (no visible crease) — build depth with gradient eyeshadow, tightlined upper lash line and a subtle faux-crease shadow. Keep the natural monolid; do NOT paint a surgical double-eyelid fold.",
+          inner:"Eyes are inner-double — trace the existing inner crease with shadow/liner to define it. Keep the natural eye shape."
+        },
+        eyeShape:{
+          downturned:"Outer eye corners turn slightly down — visually lift with a soft upward liner flick and outer-corner shadow (liner only; eye geometry unchanged).",
+          upturned:"Outer eye corners turn up — soften with a straighter, more horizontal liner."
+        },
+        eyeSize:{
+          small:"Eyes read small — enlarge the APPEARANCE only: subtle liner extension at the outer corner, brighten the inner corner and lower lash line, curled lashes with mascara. Do NOT enlarge the actual eye geometry.",
+          large:"Eyes read large — balance with soft smoky shadow and a defined lower lash line."
+        }
+      };
+      return (M[axis] && M[axis][val]) || "";
+    }
+    var corr=[];
+    ((r&&r.patches)||[]).forEach(function(p){ var s=fx(p.axis,p.val); if(s && corr.indexOf(s)<0) corr.push(s); });
+
+    var prompt = "Edit THIS exact photo. Apply a realistic Korean K-pop idol MAKEUP look inspired by "+r.celeb.name+" ("+r.celeb.mood+") to the SAME person, as if they did this makeup on themselves.\n\n"
+      + "MAKEUP STYLE TO APPLY:\n- "+look.join("\n- ")+"\n\n";
+    if(corr.length){
+      prompt += "PERSONALIZED ADJUSTMENTS for THIS face (achieve with makeup technique ONLY — contouring, highlighting, eyeliner, shadow, color; never by reshaping):\n- "+corr.join("\n- ")+"\n\n";
+    }
+    prompt += "STRICT RULES — must NOT be broken:\n"
+      + "1) Keep the SAME person. Identity, face shape, bone structure, jaw width, chin, nose shape and height, eye shape, eye spacing and facial proportions must stay EXACTLY as in the original photo.\n"
+      + "2) Any slimming or V-line effect must come ONLY from contour SHADOW (a darker shade on the skin), never by narrowing or reshaping the face. The face outline stays unchanged.\n"
+      + "3) Do NOT apply a face-slimming / beauty / face-tune filter. Do NOT make the person look like a different or more 'ideal' face.\n"
+      + "4) Keep natural, realistic skin texture (visible pores, real skin) — no plastic or over-airbrushed look.\n"
+      + "5) Keep the same age, ethnicity, head angle, expression and background.\n"
+      + "6) Only change makeup (color cosmetics) and hair styling. Everything else stays identical.\n\n"
+      + "Output: one photorealistic image of the same person wearing this makeup.";
+    return prompt;
   }
   function generateResultImage(){
     if(!S.selfie || !S.result || S.genStatus==="loading") return;
