@@ -26,6 +26,7 @@ export default function Correction() {
           <div className="ka-panel" key={pi}>
             <div className="ka-panel-h"><b>{P.label}</b><span>유형 {P.types.length}종</span></div>
             {P.toolNote && <div className="ka-cor-note"><i>ⓘ</i> {P.toolNote}</div>}
+            {P.safetyNote && <div className="ka-cor-safety"><i>⚠</i> {P.safetyNote}</div>}
 
             {P.types.map((t, ti) => (
               <div className="ka-cor" key={ti}>

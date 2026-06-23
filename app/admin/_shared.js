@@ -150,6 +150,8 @@ export const CSS = `
 .ka-affect-fx{font-size:12px;color:#5B616C;line-height:1.5;}
 .ka-cor-note{display:flex;gap:7px;font-size:12px;color:#3B5BFE;background:#EEF3FF;border:1px solid #DCE6FF;border-radius:10px;padding:9px 12px;margin-bottom:14px;line-height:1.5;}
 .ka-cor-note i{font-style:normal;}
+.ka-cor-safety{display:flex;gap:7px;font-size:12px;color:#C2410C;background:#FFF4ED;border:1px solid #FCD9BF;border-radius:10px;padding:9px 12px;margin-bottom:14px;line-height:1.5;}
+.ka-cor-safety i{font-style:normal;}
 .ka-cor{border-top:1px solid #F2F4F7;padding:16px 0 4px;}
 .ka-cor:first-of-type{border-top:0;}
 .ka-cor-h{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:5px;}
